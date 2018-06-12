@@ -11,11 +11,11 @@ namespace FruitStore.Controllers
     public class AccountController : Controller
     {
 
-        SignInManager<IdentityUser> _signInManager;
+        SignInManager<FruitStoreUser> _signInManager;
 
         //using Microsoft.aspnet.core.identity
         //this is a constructor
-        public AccountController(SignInManager<IdentityUser> signInManager)
+        public AccountController(SignInManager<FruitStoreUser> signInManager)
         {
             _signInManager = signInManager; 
         }
@@ -40,7 +40,7 @@ namespace FruitStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser newUser = new IdentityUser(model.UserName);
+                FruitStoreUser newUser = new FruitStoreUser();
 
                 IdentityResult creationResult = _signInManager.UserManager.CreateAsync(newUser).Result;
                 if (creationResult.Succeeded)
@@ -89,7 +89,7 @@ namespace FruitStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser existingUser = _signInManager.UserManager.FindByNameAsync(model.UserName).Result;
+                FruitStoreUser existingUser = _signInManager.UserManager.FindByNameAsync(model.UserName).Result;
                 if(existingUser != null)
                 {
                     Microsoft.AspNetCore.Identity.SignInResult passwordResult = _signInManager.CheckPasswordSignInAsync(existingUser, model.Password, false).Result;

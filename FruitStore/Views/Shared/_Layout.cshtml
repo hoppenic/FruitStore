@@ -34,11 +34,20 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     <li><a asp-area="" asp-controller="Product" asp-action="Index">Product</a></li>
-                    <li><a asp-area="" asp-controller="Account" asp-action="SignIn">Sign In</a></li>
-
-                    <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
-
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        //if they're not logged in, show this
+                        <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+                        <li><a asp-area="" asp-controller="Account" asp-action="SignIn">Sign In</a></li>
+                    }
+                    else
+                    {
+                        //show them they can log out
                     <li><a asp-area="" asp-controller="Account" asp-action="SignOut">Sign Out</a></li>
+                    }
+
+
+
 
                 </ul>
             </div>

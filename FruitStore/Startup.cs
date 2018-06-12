@@ -27,9 +27,11 @@ namespace FruitStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<IdentityDbContext>(Opt => Opt.UseInMemoryDatabase("Identities"));
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<IdentityDbContext>()
+            string FruitStoreConnectionString = Configuration.GetConnectionString("FruitStore");
+            services.AddDbContext<FruitStoreDbContext>(Opt => Opt.UseSqlServer(FruitStoreConnectionString));
+
+            services.AddIdentity<FruitStoreUser, IdentityRole>()
+                .AddEntityFrameworkStores<FruitStoreDbContext>()
                 .AddDefaultTokenProviders();
 
             services
