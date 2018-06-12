@@ -26,10 +26,15 @@ namespace FruitStore.Controllers
         //Responds on POST /Account/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Register(string username, string password)
+        public IActionResult Register(RegisterViewModel model)
         {
+            if (ModelState.IsValid)
+            {
+                //TODO create an account and log this user in
+                return RedirectToAction("Index", "Home");
+            }
 
-            return Ok();
+            return View();
 
         }
 
